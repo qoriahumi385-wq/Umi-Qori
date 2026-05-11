@@ -12,123 +12,80 @@
   --warm:#e8c98a;
   --rose:#c9847a;
   --sage:#7a9e8a;
-  --purple:#a78bfa;
-  --ink:#0d0a1a;
-  --coal:#110e22;
-  --charcoal:#1a1630;
-  --border:rgba(167,139,250,.14);
+  --ink:#0f0d0b;
+  --coal:#1a1714;
+  --charcoal:#242018;
+  --border:rgba(232,201,138,.12);
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-  background:#0d0a1a;
+  background:var(--ink);
   color:var(--ivory);
   font-family:'DM Sans',sans-serif;
   overflow-x:hidden;
   cursor:none;
 }
 
-/* ── CURSOR ── */
-#c-dot{position:fixed;width:7px;height:7px;background:var(--warm);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 14px rgba(232,201,138,.9);}
-#c-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(167,139,250,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s;}
+/* CURSOR */
+#c-dot{position:fixed;width:7px;height:7px;background:var(--warm);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 12px rgba(232,201,138,.8);}
+#c-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(232,201,138,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s;}
 
-/* ── BACKGROUND ── */
-#bg-base{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 85% 65% at 10% 15%, rgba(120,50,200,.6) 0%, transparent 55%),
-    radial-gradient(ellipse 75% 60% at 90% 80%, rgba(180,50,110,.5) 0%, transparent 55%),
-    radial-gradient(ellipse 55% 55% at 50% 50%, rgba(40,25,100,.7) 0%, transparent 65%),
-    radial-gradient(ellipse 80% 45% at 55% 100%, rgba(70,30,150,.45) 0%, transparent 50%),
-    radial-gradient(ellipse 60% 50% at 5% 80%,  rgba(30,80,120,.35) 0%, transparent 55%),
-    linear-gradient(135deg, #0a0715 0%, #160b2a 40%, #0e1025 70%, #180a1e 100%);
-  animation:bgPulse 20s ease-in-out infinite alternate;
-}
-@keyframes bgPulse{
-  0%  {filter:hue-rotate(0deg) brightness(1);}
-  33% {filter:hue-rotate(12deg) brightness(1.05);}
-  66% {filter:hue-rotate(-8deg) brightness(.98);}
-  100%{filter:hue-rotate(5deg) brightness(1.03);}
-}
+/* BG LAYERS */
+#silk{position:fixed;inset:0;z-index:0;pointer-events:none;}
+#dust{position:fixed;inset:0;z-index:0;pointer-events:none;}
 
-/* dot texture */
-#dot-tex{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:radial-gradient(circle, rgba(255,255,255,.07) 1px, transparent 1px);
-  background-size:26px 26px;
-}
-
-/* subtle diagonal hatching */
-#hatch{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:repeating-linear-gradient(
-    -50deg, transparent, transparent 20px,
-    rgba(167,139,250,.022) 20px, rgba(167,139,250,.022) 21px
-  );
-}
-
-/* canvas layers */
-#nebula{position:fixed;inset:0;z-index:1;pointer-events:none;}
-#streak{position:fixed;inset:0;z-index:2;pointer-events:none;}
-#dust  {position:fixed;inset:0;z-index:2;pointer-events:none;}
-
-/* ── CORNER ORNAMENTS ── */
-.corner{position:fixed;width:190px;height:190px;pointer-events:none;z-index:3;opacity:.4;}
-.corner-tl{top:0;left:0;}
-.corner-tr{top:0;right:0;transform:scaleX(-1);}
-.corner-bl{bottom:0;left:0;transform:scaleY(-1);}
-.corner-br{bottom:0;right:0;transform:scale(-1);}
-
-/* ── FLOATING GEO ── */
-.geo{position:fixed;pointer-events:none;z-index:2;animation:geoRise linear infinite;opacity:0;}
+/* FLOATING GEOMETRY */
+.geo{position:fixed;pointer-events:none;z-index:0;animation:geoRise linear infinite;opacity:0;}
 @keyframes geoRise{
-  0%  {opacity:0;transform:translateY(108vh) rotate(0deg);}
-  7%  {opacity:1;}
-  93% {opacity:.75;}
-  100%{opacity:0;transform:translateY(-14vh) rotate(430deg);}
+  0%{opacity:0;transform:translateY(105vh) rotate(0deg);}
+  6%{opacity:1;}
+  94%{opacity:.5;}
+  100%{opacity:0;transform:translateY(-12vh) rotate(400deg);}
 }
 
-/* ── HERO ── */
-.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:4;padding:24px 20px;}
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;padding:24px 20px;}
 
 .watermark{
   position:absolute;
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(55px,14vw,140px);font-weight:700;font-style:italic;
-  color:rgba(167,139,250,.04);
+  font-size:clamp(55px,14vw,140px);
+  font-weight:700;font-style:italic;
+  color:rgba(232,201,138,.025);
   text-align:center;width:100%;
   top:50%;transform:translateY(-50%);
   pointer-events:none;user-select:none;
   letter-spacing:8px;line-height:.9;
 }
 
-/* ── ORBIT ── */
+/* ORBIT */
 .orbit-wrapper{
   position:relative;display:flex;align-items:center;justify-content:center;
   width:clamp(280px,76vw,450px);height:clamp(280px,76vw,450px);z-index:2;
 }
-.deco-ring{position:absolute;border-radius:50%;}
-.deco-ring:nth-child(1){inset:0;border:1px solid rgba(167,139,250,.18);animation:rs 28s linear infinite;}
-.deco-ring:nth-child(2){inset:24px;border:1px solid rgba(201,132,122,.14);animation:rs 18s linear infinite reverse;}
-.deco-ring:nth-child(3){inset:50px;border:1px solid rgba(122,158,138,.11);animation:rs 38s linear infinite;}
+.deco-ring{position:absolute;border-radius:50%;border:1px solid var(--border);}
+.deco-ring:nth-child(1){inset:0;animation:rs 28s linear infinite;}
+.deco-ring:nth-child(2){inset:24px;border-color:rgba(201,132,122,.09);animation:rs 18s linear infinite reverse;}
+.deco-ring:nth-child(3){inset:50px;border-color:rgba(122,158,138,.07);animation:rs 38s linear infinite;}
 @keyframes rs{to{transform:rotate(360deg);}}
 
-/* ── AVATAR ── */
+/* AVATAR */
 .av-wrap{position:relative;z-index:3;animation:lev 8s ease-in-out infinite;}
 @keyframes lev{0%,100%{transform:translateY(0);}50%{transform:translateY(-16px);}}
 
 .av-border{
   width:clamp(116px,29vw,185px);height:clamp(116px,29vw,185px);
   border-radius:50%;padding:2.5px;
-  background:conic-gradient(var(--warm),var(--rose),var(--purple),var(--sage),var(--warm));
+  background:conic-gradient(var(--warm),var(--rose),var(--sage),var(--warm));
   animation:huerot 9s linear infinite;
 }
 @keyframes huerot{to{filter:hue-rotate(360deg);}}
 
 .av-inner{
   width:100%;height:100%;border-radius:50%;
-  background:radial-gradient(circle at 38% 32%,#2a1840,#0d0a1a);
+  background:radial-gradient(circle at 38% 32%,#2a2018,var(--ink));
   display:flex;align-items:center;justify-content:center;
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(34px,8.5vw,60px);font-weight:700;font-style:italic;
@@ -137,237 +94,200 @@ body{
 .av-inner img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
 
 .av-glow{
-  position:absolute;inset:-30px;border-radius:50%;
-  background:radial-gradient(circle,rgba(167,139,250,.22),rgba(232,201,138,.1),transparent 65%);
+  position:absolute;inset:-22px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,201,138,.1),transparent 68%);
   animation:gp 4s ease-in-out infinite;z-index:-1;
 }
-@keyframes gp{0%,100%{transform:scale(1);}50%{transform:scale(1.22);opacity:.65;}}
+@keyframes gp{0%,100%{transform:scale(1);}50%{transform:scale(1.15);opacity:.6;}}
 
-/* ── ORBIT BUTTONS ── */
+/* ORBIT BUTTONS */
 .ob{
   position:absolute;width:56px;height:56px;border-radius:50%;
-  background:rgba(13,10,26,.85);
-  border:1px solid rgba(167,139,250,.22);
+  background:rgba(15,13,11,.78);
+  border:1px solid rgba(232,201,138,.18);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:3px;cursor:none;backdrop-filter:blur(16px);
+  gap:3px;cursor:none;backdrop-filter:blur(14px);
   transition:border-color .3s,box-shadow .3s,background .3s;
   color:var(--warm);
 }
-.ob:hover{
-  border-color:rgba(167,139,250,.75);
-  background:rgba(167,139,250,.12);
-  box-shadow:0 0 32px rgba(167,139,250,.35),0 0 12px rgba(232,201,138,.15);
-}
+.ob:hover{border-color:rgba(232,201,138,.65);background:rgba(232,201,138,.08);box-shadow:0 0 28px rgba(232,201,138,.28);}
 .ob svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;}
-.ob span{font-family:'Cormorant Garamond',serif;font-size:7px;letter-spacing:1.2px;color:rgba(167,139,250,.7);font-style:italic;}
+.ob span{font-family:'Cormorant Garamond',serif;font-size:7px;letter-spacing:1.2px;color:rgba(232,201,138,.65);font-style:italic;}
 
-/* ── NAME ── */
+/* NAME */
 .name-block{text-align:center;z-index:2;margin-top:14px;}
 .name-block h1{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(22px,6vw,52px);font-weight:700;font-style:italic;
   letter-spacing:4px;
-  background:linear-gradient(135deg,var(--ivory) 0%,var(--warm) 40%,var(--purple) 100%);
+  background:linear-gradient(135deg,var(--ivory) 0%,var(--warm) 55%,var(--rose) 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;
 }
-.name-block .role{font-size:clamp(9px,2.2vw,12px);letter-spacing:5px;color:rgba(167,139,250,.55);margin-top:7px;text-transform:uppercase;font-weight:300;}
+.name-block .role{font-size:clamp(9px,2.2vw,12px);letter-spacing:5px;color:rgba(232,201,138,.45);margin-top:7px;text-transform:uppercase;font-weight:300;}
 .name-block .qpill{
   display:inline-block;margin-top:12px;
   font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:clamp(10px,2.4vw,13px);color:rgba(245,240,232,.55);
+  font-size:clamp(10px,2.4vw,13px);color:rgba(245,240,232,.5);
   letter-spacing:.7px;line-height:1.7;max-width:360px;
-  padding:9px 20px;
-  border:1px solid rgba(167,139,250,.2);
-  border-radius:50px;
-  background:rgba(167,139,250,.07);
-  backdrop-filter:blur(12px);
+  padding:9px 20px;border:1px solid rgba(232,201,138,.12);
+  border-radius:50px;background:rgba(232,201,138,.025);
 }
 
-/* ── SCROLL ── */
+/* SCROLL */
 .scr{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;animation:fo 3s infinite;}
-.scr span{font-size:8.5px;letter-spacing:4px;color:rgba(167,139,250,.55);}
-.scr-line{width:.5px;height:34px;background:linear-gradient(var(--purple),transparent);animation:drip 3s infinite;}
-@keyframes fo{0%,100%{opacity:.2;}50%{opacity:.7;}}
+.scr span{font-size:8.5px;letter-spacing:4px;color:rgba(232,201,138,.45);}
+.scr-line{width:.5px;height:34px;background:linear-gradient(var(--warm),transparent);animation:drip 3s infinite;}
+@keyframes fo{0%,100%{opacity:.2;}50%{opacity:.65;}}
 @keyframes drip{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform:scaleY(1);transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
 
-/* ── TICKER ── */
-.ticker{position:relative;z-index:4;padding:10px 0;overflow:hidden;
-  background:rgba(13,10,26,.9);
-  border-top:1px solid rgba(167,139,250,.18);
-  border-bottom:1px solid rgba(167,139,250,.18);
-  backdrop-filter:blur(10px);
-}
+/* TICKER */
+.ticker{position:relative;z-index:2;padding:10px 0;overflow:hidden;background:linear-gradient(90deg,var(--ink),rgba(36,32,24,.96),var(--ink));border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .ticker-t{display:inline-block;white-space:nowrap;animation:tick 36s linear infinite;}
-.ticker-t span{font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:3px;font-style:italic;color:rgba(167,139,250,.5);padding:0 5px;}
+.ticker-t span{font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:3px;font-style:italic;color:rgba(232,201,138,.38);padding:0 5px;}
 @keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-/* ── STATS ── */
-.stats{position:relative;z-index:4;display:flex;justify-content:center;gap:clamp(14px,5vw,70px);padding:26px 20px;
-  background:rgba(13,10,26,.88);
-  border-bottom:1px solid rgba(167,139,250,.14);
-  backdrop-filter:blur(10px);
-}
+/* STATS */
+.stats{position:relative;z-index:2;display:flex;justify-content:center;gap:clamp(14px,5vw,70px);padding:26px 20px;background:var(--coal);border-bottom:1px solid var(--border);}
 .stat{text-align:center;}
-.stat-n{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,7.5vw,54px);font-weight:700;background:linear-gradient(135deg,var(--warm),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.stat-l{font-size:8.5px;letter-spacing:2.5px;color:rgba(245,240,232,.3);text-transform:uppercase;margin-top:3px;}
+.stat-n{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,7.5vw,54px);font-weight:700;background:linear-gradient(135deg,var(--warm),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat-l{font-size:8.5px;letter-spacing:2.5px;color:rgba(245,240,232,.28);text-transform:uppercase;margin-top:3px;}
 
-/* ── FOOTER ── */
-.footer{position:relative;z-index:4;text-align:center;padding:44px 20px;
-  background:rgba(13,10,26,.88);
-  border-top:1px solid rgba(167,139,250,.14);
-  backdrop-filter:blur(10px);
-}
+/* FOOTER */
+.footer{position:relative;z-index:2;text-align:center;padding:44px 20px;background:var(--coal);border-top:1px solid var(--border);}
 .footer blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(13.5px,3.8vw,21px);font-weight:600;font-style:italic;color:var(--warm);max-width:560px;margin:0 auto 10px;line-height:1.65;}
 .footer cite{font-size:9.5px;letter-spacing:3px;color:rgba(245,240,232,.22);font-style:normal;}
 
-/* ── MODAL ── */
-.mo{display:none;position:fixed;inset:0;background:rgba(8,5,20,.9);z-index:200;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(14px);}
+/* MODAL */
+.mo{display:none;position:fixed;inset:0;background:rgba(10,8,6,.84);z-index:200;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(10px);}
 .mo.active{display:flex;}
 .md{
-  background:linear-gradient(145deg,rgba(17,14,34,.99),rgba(22,18,44,.99));
-  border:1px solid rgba(167,139,250,.22);border-radius:18px;
+  background:linear-gradient(145deg,var(--coal),var(--charcoal));
+  border:1px solid rgba(232,201,138,.16);border-radius:18px;
   padding:32px 26px;max-width:540px;width:100%;max-height:88vh;overflow-y:auto;
   position:relative;
-  box-shadow:0 30px 80px rgba(0,0,0,.75),0 0 70px rgba(167,139,250,.07);
+  box-shadow:0 30px 80px rgba(0,0,0,.65),0 0 55px rgba(232,201,138,.05);
   animation:mIn .35s cubic-bezier(.34,1.56,.64,1);
 }
 @keyframes mIn{from{transform:scale(.82) translateY(22px);opacity:0;}to{transform:none;opacity:1;}}
-.mc{position:absolute;top:15px;right:17px;background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2);color:rgba(167,139,250,.7);width:29px;height:29px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:none;transition:all .2s;}
-.mc:hover{background:rgba(167,139,250,.2);color:var(--warm);}
+.mc{position:absolute;top:15px;right:17px;background:rgba(232,201,138,.06);border:1px solid rgba(232,201,138,.14);color:rgba(232,201,138,.55);width:29px;height:29px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:none;transition:all .2s;}
+.mc:hover{background:rgba(232,201,138,.14);color:var(--warm);}
 .md h2{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;font-style:italic;color:var(--warm);margin-bottom:18px;letter-spacing:2px;}
-.md p,.md li{font-size:13.5px;line-height:1.88;color:rgba(245,240,232,.72);margin-bottom:8px;}
+.md p,.md li{font-size:13.5px;line-height:1.88;color:rgba(245,240,232,.7);margin-bottom:8px;}
 .md ul{padding-left:0;list-style:none;}
 .md ul li{padding-left:16px;position:relative;margin-bottom:7px;}
-.md ul li::before{content:'—';position:absolute;left:0;color:rgba(167,139,250,.5);}
-.sl{font-size:9px;letter-spacing:3px;color:rgba(167,139,250,.65);text-transform:uppercase;font-weight:600;margin:18px 0 9px;padding-bottom:6px;border-bottom:1px solid rgba(167,139,250,.14);}
-.bdg{display:inline-block;background:rgba(167,139,250,.09);border:1px solid rgba(167,139,250,.25);border-radius:20px;padding:4px 13px;font-size:11.5px;color:rgba(232,201,138,.88);margin:3px;}
-.ec{display:flex;gap:14px;align-items:flex-start;margin-bottom:15px;padding:15px;background:rgba(167,139,250,.05);border:1px solid rgba(167,139,250,.12);border-radius:12px;position:relative;overflow:hidden;}
-.ec::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(var(--warm),var(--purple));}
+.md ul li::before{content:'—';position:absolute;left:0;color:rgba(232,201,138,.4);}
+.sl{font-size:9px;letter-spacing:3px;color:rgba(232,201,138,.45);text-transform:uppercase;font-weight:600;margin:18px 0 9px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.bdg{display:inline-block;background:rgba(232,201,138,.07);border:1px solid rgba(232,201,138,.18);border-radius:20px;padding:4px 13px;font-size:11.5px;color:rgba(232,201,138,.82);margin:3px;}
+.ec{display:flex;gap:14px;align-items:flex-start;margin-bottom:15px;padding:15px;background:rgba(245,240,232,.02);border:1px solid rgba(232,201,138,.08);border-radius:12px;position:relative;overflow:hidden;}
+.ec::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(var(--warm),var(--rose));}
 .ec .ico{font-size:21px;flex-shrink:0;}
 .ec strong{color:var(--ivory);font-size:13.5px;display:block;margin-bottom:2px;}
-.ec small{color:rgba(167,139,250,.55);font-size:10.5px;display:block;margin-bottom:6px;}
+.ec small{color:rgba(232,201,138,.4);font-size:10.5px;display:block;margin-bottom:6px;}
 .ec p{margin:0;font-size:12.5px;color:rgba(245,240,232,.52);}
-.pc{border:1px solid rgba(167,139,250,.13);border-radius:11px;padding:14px;margin-bottom:9px;background:rgba(167,139,250,.05);transition:border-color .25s,background .25s;position:relative;overflow:hidden;}
-.pc::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(167,139,250,.35),transparent);}
-.pc:hover{border-color:rgba(167,139,250,.32);background:rgba(167,139,250,.09);}
+.pc{border:1px solid rgba(232,201,138,.1);border-radius:11px;padding:14px;margin-bottom:9px;background:rgba(245,240,232,.02);transition:border-color .25s,background .25s;position:relative;overflow:hidden;}
+.pc::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(232,201,138,.28),transparent);}
+.pc:hover{border-color:rgba(232,201,138,.26);background:rgba(232,201,138,.04);}
 .pc h3{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:var(--warm);margin-bottom:5px;letter-spacing:.7px;}
 .pc p{font-size:12.5px;color:rgba(245,240,232,.52);margin:0;}
-.cr{display:flex;align-items:center;gap:16px;padding:15px 17px;margin-bottom:10px;background:rgba(167,139,250,.05);border:1px solid rgba(167,139,250,.13);border-radius:12px;text-decoration:none;transition:all .25s;}
-.cr:hover{background:rgba(167,139,250,.12);border-color:rgba(167,139,250,.38);transform:translateX(5px);}
+
+/* KONTAK */
+.cr{display:flex;align-items:center;gap:16px;padding:15px 17px;margin-bottom:10px;background:rgba(245,240,232,.025);border:1px solid rgba(232,201,138,.1);border-radius:12px;text-decoration:none;transition:all .25s;}
+.cr:hover{background:rgba(232,201,138,.07);border-color:rgba(232,201,138,.32);transform:translateX(5px);}
 .ci{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0;}
-.ci.wa{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.2);}
-.ci.em{background:rgba(232,201,138,.08);border:1px solid rgba(232,201,138,.2);}
+.ci.wa{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.18);}
+.ci.em{background:rgba(232,201,138,.08);border:1px solid rgba(232,201,138,.18);}
 .ci-info strong{display:block;font-size:13.5px;color:var(--ivory);margin-bottom:2px;}
 .ci-info span{font-size:12px;color:rgba(245,240,232,.42);}
+
+/* GALLERY */
 .gg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px;}
-.gs{aspect-ratio:1;border-radius:10px;border:1px dashed rgba(167,139,250,.2);background:rgba(167,139,250,.05);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;font-size:10px;color:rgba(167,139,250,.45);transition:all .2s;}
-.gs:hover{border-color:rgba(167,139,250,.45);background:rgba(167,139,250,.12);}
-.gs svg{width:24px;height:24px;stroke:rgba(167,139,250,.35);fill:none;stroke-width:1.3;}
+.gs{aspect-ratio:1;border-radius:10px;border:1px dashed rgba(232,201,138,.13);background:rgba(232,201,138,.025);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;font-size:10px;color:rgba(232,201,138,.28);transition:all .2s;overflow:hidden;}
+.gs:hover{border-color:rgba(232,201,138,.38);background:rgba(232,201,138,.055);}
+.gs svg{width:24px;height:24px;stroke:rgba(232,201,138,.22);fill:none;stroke-width:1.3;}
+.gs img{width:100%;height:100%;object-fit:cover;border-radius:10px;}
 
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:transparent;}
-::-webkit-scrollbar-thumb{background:rgba(167,139,250,.28);border-radius:2px;}
+::-webkit-scrollbar-thumb{background:rgba(232,201,138,.22);border-radius:2px;}
 </style>
 </head>
 <body>
 
 <div id="c-dot"></div>
 <div id="c-ring"></div>
-
-<!-- BG -->
-<div id="bg-base"></div>
-<div id="dot-tex"></div>
-<div id="hatch"></div>
-<canvas id="nebula"></canvas>
-<canvas id="streak"></canvas>
+<canvas id="silk"></canvas>
 <canvas id="dust"></canvas>
 
-<!-- CORNERS -->
-<svg class="corner corner-tl" viewBox="0 0 190 190" fill="none">
-  <path d="M2 2 L95 2" stroke="rgba(167,139,250,.8)" stroke-width="1.3"/>
-  <path d="M2 2 L2 95" stroke="rgba(167,139,250,.8)" stroke-width="1.3"/>
-  <path d="M2 2 L46 2 L46 15 L15 15 L15 46 L2 46 Z" stroke="rgba(232,201,138,.4)" stroke-width=".8" fill="rgba(167,139,250,.05)"/>
-  <circle cx="2" cy="2" r="3.5" fill="rgba(167,139,250,1)"/>
-  <circle cx="95" cy="2" r="2" fill="rgba(167,139,250,.45)"/>
-  <circle cx="2" cy="95" r="2" fill="rgba(167,139,250,.45)"/>
-  <circle cx="46" cy="2" r="1.5" fill="rgba(232,201,138,.55)"/>
-  <circle cx="2" cy="46" r="1.5" fill="rgba(232,201,138,.55)"/>
-  <rect x="64" y="-2" width="9" height="9" rx="2" stroke="rgba(201,132,122,.55)" stroke-width=".8" fill="none"/>
-  <rect x="-2" y="64" width="9" height="9" rx="2" stroke="rgba(122,158,138,.55)" stroke-width=".8" fill="none"/>
-  <path d="M24 2 L24 24 L2 24" stroke="rgba(167,139,250,.22)" stroke-width=".6" fill="none"/>
-</svg>
-<svg class="corner corner-tr" viewBox="0 0 190 190" fill="none">
-  <path d="M2 2 L95 2" stroke="rgba(167,139,250,.8)" stroke-width="1.3"/>
-  <path d="M2 2 L2 95" stroke="rgba(167,139,250,.8)" stroke-width="1.3"/>
-  <path d="M2 2 L46 2 L46 15 L15 15 L15 46 L2 46 Z" stroke="rgba(232,201,138,.4)" stroke-width=".8" fill="rgba(167,139,250,.05)"/>
-  <circle cx="2" cy="2" r="3.5" fill="rgba(167,139,250,1)"/>
-  <circle cx="95" cy="2" r="2" fill="rgba(167,139,250,.45)"/>
-  <circle cx="2" cy="95" r="2" fill="rgba(167,139,250,.45)"/>
-  <circle cx="46" cy="2" r="1.5" fill="rgba(232,201,138,.55)"/>
-</svg>
-<svg class="corner corner-bl" viewBox="0 0 190 190" fill="none">
-  <path d="M2 2 L95 2" stroke="rgba(167,139,250,.8)" stroke-width="1.3"/>
-  <path d="M2 2 L2 95" stroke="rgba(167,139,250,.8)" stroke-width="1.3"/>
-  <path d="M2 2 L46 2 L46 15 L15 15 L15 46 L2 46 Z" stroke="rgba(232,201,138,.4)" stroke-width=".8" fill="rgba(167,139,250,.05)"/>
-  <circle cx="2" cy="2" r="3.5" fill="rgba(167,139,250,1)"/>
-  <circle cx="95" cy="2" r="2" fill="rgba(167,139,250,.45)"/>
-  <circle cx="2" cy="95" r="2" fill="rgba(167,139,250,.45)"/>
-</svg>
-<svg class="corner corner-br" viewBox="0 0 190 190" fill="none">
-  <path d="M2 2 L95 2" stroke="rgba(167,139,250,.8)" stroke-width="1.3"/>
-  <path d="M2 2 L2 95" stroke="rgba(167,139,250,.8)" stroke-width="1.3"/>
-  <path d="M2 2 L46 2 L46 15 L15 15 L15 46 L2 46 Z" stroke="rgba(232,201,138,.4)" stroke-width=".8" fill="rgba(167,139,250,.05)"/>
-  <circle cx="2" cy="2" r="3.5" fill="rgba(167,139,250,1)"/>
-</svg>
-
 <!-- FLOATING GEO -->
-<div class="geo" style="left:4%;animation-duration:24s;animation-delay:0s;"><svg width="70" height="70" viewBox="0 0 70 70" fill="none"><polygon points="35,4 66,54 4,54" stroke="rgba(167,139,250,.42)" stroke-width="1.3"/></svg></div>
-<div class="geo" style="left:15%;animation-duration:31s;animation-delay:4s;"><svg width="50" height="50" viewBox="0 0 50 50" fill="none"><rect x="3" y="3" width="44" height="44" rx="5" stroke="rgba(201,132,122,.38)" stroke-width="1.2" transform="rotate(15,25,25)"/></svg></div>
-<div class="geo" style="left:27%;animation-duration:19s;animation-delay:9s;"><svg width="42" height="42" viewBox="0 0 42 42" fill="none"><circle cx="21" cy="21" r="17" stroke="rgba(122,158,138,.38)" stroke-width="1"/><circle cx="21" cy="21" r="9" stroke="rgba(122,158,138,.2)" stroke-width=".7"/></svg></div>
-<div class="geo" style="left:39%;animation-duration:27s;animation-delay:2s;"><svg width="56" height="56" viewBox="0 0 56 56" fill="none"><polygon points="28,2,52,20,43,48,13,48,4,20" stroke="rgba(232,201,138,.35)" stroke-width="1.3"/></svg></div>
-<div class="geo" style="left:51%;animation-duration:22s;animation-delay:6s;"><svg width="46" height="46" viewBox="0 0 46 46" fill="none"><polygon points="23,2 43,23 23,44 3,23" stroke="rgba(167,139,250,.45)" stroke-width="1.3"/></svg></div>
-<div class="geo" style="left:63%;animation-duration:35s;animation-delay:14s;"><svg width="62" height="62" viewBox="0 0 62 62" fill="none"><polygon points="31,3 59,16 59,46 31,59 3,46 3,16" stroke="rgba(192,132,252,.35)" stroke-width="1"/></svg></div>
-<div class="geo" style="left:74%;animation-duration:20s;animation-delay:11s;"><svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="4" y="4" width="40" height="40" rx="4" stroke="rgba(232,201,138,.32)" stroke-width="1.2" transform="rotate(30,24,24)"/></svg></div>
-<div class="geo" style="left:84%;animation-duration:28s;animation-delay:17s;"><svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" stroke="rgba(201,132,122,.38)" stroke-width="1.1"/></svg></div>
-<div class="geo" style="left:93%;animation-duration:32s;animation-delay:5s;"><svg width="54" height="54" viewBox="0 0 54 54" fill="none"><polygon points="27,2 52,42 2,42" stroke="rgba(167,139,250,.38)" stroke-width="1.3"/></svg></div>
-<div class="geo" style="left:9%;animation-duration:26s;animation-delay:20s;"><svg width="44" height="44" viewBox="0 0 44 44" fill="none"><polygon points="22,2 42,22 22,42 2,22" stroke="rgba(232,201,138,.4)" stroke-width="1.3"/></svg></div>
-<div class="geo" style="left:47%;animation-duration:18s;animation-delay:7s;"><svg width="50" height="50" viewBox="0 0 50 50" fill="none"><polygon points="25,2 46,14 46,36 25,48 4,36 4,14" stroke="rgba(192,132,252,.4)" stroke-width="1.3"/></svg></div>
-<div class="geo" style="left:78%;animation-duration:23s;animation-delay:13s;"><svg width="38" height="38" viewBox="0 0 38 38" fill="none"><polygon points="19,2 36,19 19,36 2,19" stroke="rgba(122,158,138,.42)" stroke-width="1.2"/></svg></div>
-<div class="geo" style="left:32%;animation-duration:29s;animation-delay:22s;"><svg width="56" height="56" viewBox="0 0 56 56" fill="none"><rect x="4" y="4" width="48" height="48" rx="4" stroke="rgba(167,139,250,.25)" stroke-width="1"/><rect x="16" y="16" width="24" height="24" rx="4" stroke="rgba(167,139,250,.18)" stroke-width=".7"/></svg></div>
+<div class="geo" style="left:7%;animation-duration:24s;animation-delay:0s;">
+  <svg width="58" height="58" viewBox="0 0 58 58" fill="none"><polygon points="29,3 55,45 3,45" stroke="rgba(232,201,138,.07)" stroke-width=".8"/></svg>
+</div>
+<div class="geo" style="left:22%;animation-duration:31s;animation-delay:6s;">
+  <svg width="46" height="46" viewBox="0 0 46 46" fill="none"><rect x="3" y="3" width="40" height="40" rx="5" stroke="rgba(201,132,122,.07)" stroke-width=".8"/></svg>
+</div>
+<div class="geo" style="left:52%;animation-duration:20s;animation-delay:3s;">
+  <svg width="50" height="50" viewBox="0 0 50 50" fill="none"><circle cx="25" cy="25" r="21" stroke="rgba(122,158,138,.07)" stroke-width=".8"/></svg>
+</div>
+<div class="geo" style="left:71%;animation-duration:27s;animation-delay:9s;">
+  <svg width="42" height="42" viewBox="0 0 42 42" fill="none"><polygon points="21,2 40,31 2,31" stroke="rgba(232,201,138,.06)" stroke-width=".8"/></svg>
+</div>
+<div class="geo" style="left:87%;animation-duration:35s;animation-delay:14s;">
+  <svg width="34" height="34" viewBox="0 0 34 34" fill="none"><rect x="3" y="3" width="28" height="28" rx="7" stroke="rgba(201,132,122,.06)" stroke-width=".8"/></svg>
+</div>
+<div class="geo" style="left:39%;animation-duration:22s;animation-delay:18s;">
+  <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="22" stroke="rgba(232,201,138,.05)" stroke-width=".8"/></svg>
+</div>
 
 <!-- HERO -->
 <section class="hero">
   <div class="watermark">Umi<br>Qoriah</div>
+
   <div class="orbit-wrapper">
     <div class="deco-ring"></div>
     <div class="deco-ring"></div>
     <div class="deco-ring"></div>
+
     <div class="av-wrap">
       <div class="av-glow"></div>
-      <div class="av-border"><div class="av-inner">UQ</div></div>
+      <div class="av-border">
+        <div class="av-inner">
+          <img src="Screenshot_20260205_091929.jpg" alt="Foto Profil Umi Qoriah">
+        </div>
+      </div>
     </div>
+
     <button class="ob" id="ob0" onclick="openModal('bio')">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg><span>BIO</span>
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <span>BIO</span>
     </button>
     <button class="ob" id="ob1" onclick="openModal('edu')">
-      <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg><span>EDU</span>
+      <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      <span>EDU</span>
     </button>
     <button class="ob" id="ob2" onclick="openModal('proyek')">
-      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span>PROYEK</span>
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      <span>PROYEK</span>
     </button>
     <button class="ob" id="ob3" onclick="openModal('gallery')">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>GALERI</span>
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <span>GALERI</span>
     </button>
     <button class="ob" id="ob4" onclick="openModal('kontak')">
-      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.45-3 19.5 19.5 0 0 1-5.37-5.37 19.79 19.79 0 0 1-3-8.36A2 2 0 0 1 4.11 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 10.91a16 16 0 0 0 5 5l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 17z"/></svg><span>KONTAK</span>
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.45-3 19.5 19.5 0 0 1-5.37-5.37 19.79 19.79 0 0 1-3-8.36A2 2 0 0 1 4.11 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 10.91a16 16 0 0 0 5 5l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 17z"/></svg>
+      <span>KONTAK</span>
     </button>
   </div>
+
   <div class="name-block">
     <h1>Umi Qoriah</h1>
     <div class="role">Sistem Informasi &nbsp;·&nbsp; UNIKMA Cilacap</div>
     <div class="qpill">"Jangan pernah takut untuk selalu mencoba, karena setiap percobaan pasti ada hasilnya."</div>
   </div>
-  <div class="scr"><span>SCROLL</span><div class="scr-line"></div></div>
+
+  <div class="scr">
+    <span>SCROLL</span>
+    <div class="scr-line"></div>
+  </div>
 </section>
 
 <!-- TICKER -->
@@ -391,15 +311,17 @@ body{
   <cite>— UMI QORIAH</cite>
 </div>
 
-<!-- MODALS -->
+<!-- ===== MODALS ===== -->
+
+<!-- BIO -->
 <div class="mo" id="modal-bio">
   <div class="md">
     <button class="mc" onclick="closeModal('bio')">✕</button>
     <h2>✦ Bio</h2>
-    <p>Halo! Perkenalkan, nama saya <strong style="color:var(--warm)">Umi Qoriah</strong> — mahasiswi aktif Program Studi <strong>Sistem Informasi</strong> di <strong>Universitas Komputama (UNIKMA) Cilacap</strong>. Saya adalah pribadi yang penuh semangat dan selalu berani mencoba hal baru.</p>
-    <p>Jiwa kompetitif dan rasa ingin tahu mendorong saya untuk terus bertumbuh — dari lapangan olahraga hingga ruang kelas teknologi.</p>
+    <p>Halo! Perkenalkan, nama saya <strong style="color:var(--warm)">Umi Qoriah</strong> — mahasiswi aktif Program Studi <strong>Sistem Informasi</strong> di <strong>Universitas Komputama (UNIKMA) Cilacap</strong>. Saya adalah pribadi yang penuh semangat, tidak kenal lelah, dan selalu berani mencoba hal baru, baik di akademik maupun olahraga.</p>
+    <p>Jiwa kompetitif dan rasa ingin tahu yang tinggi mendorong saya untuk terus bertumbuh — dari lapangan olahraga hingga ruang kelas teknologi, setiap pengalaman membentuk versi terbaik dari diri saya.</p>
     <div class="sl">Visi</div>
-    <p>Menjadi profesional teknologi informasi yang berdedikasi dan mampu memberikan dampak positif melalui inovasi yang berarti.</p>
+    <p>Menjadi profesional teknologi informasi yang berdedikasi tinggi, berkarakter kuat, and mampu memberikan dampak positif bagi masyarakat melalui inovasi yang berarti.</p>
     <div class="sl">Misi</div>
     <ul>
       <li>Terus belajar dan mengembangkan diri di bidang teknologi maupun kehidupan sosial.</li>
@@ -408,259 +330,17 @@ body{
       <li>Tidak pernah berhenti bergerak — karena diam adalah kemunduran.</li>
     </ul>
     <div class="sl">Motto Hidup</div>
-    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--warm);padding:12px 16px;border-left:2px solid rgba(167,139,250,.5);background:rgba(167,139,250,.06);border-radius:0 8px 8px 0;">"Jangan pernah takut untuk selalu mencoba berbagai percobaan di sekitar kita, karena setiap percobaan yang telah kita dapatkan pasti ada hasilnya."</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:15px;color:var(--warm);padding:12px 16px;border-left:2px solid rgba(232,201,138,.4);background:rgba(232,201,138,.04);border-radius:0 8px 8px 0;">"Jangan pernah takut untuk selalu mencoba berbagai percobaan di sekitar kita, karena setiap percobaan yang telah kita dapatkan pasti ada hasilnya."</p>
     <div class="sl">Hobi — Olahraga</div>
-    <p>Meraih sertifikat dan piala di: <strong>Voli, Futsal, Badminton,</strong> dan <strong>Lari</strong>. Aktif mengajarkan teman sekelas berbagai teknik olahraga.</p>
+    <p>Sejak kecil saya jatuh cinta pada dunia olahraga. Hampir semua cabang saya gemari, dan beberapa mengantarkan saya meraih <strong style="color:var(--warm)">sertifikat dan piala</strong> dari sekolah: <strong>Voli, Futsal, Badminton,</strong> dan <strong>Lari</strong>.</p>
+    <p>Olahraga mengajarkan strategi, kerja tim, ketangguhan mental, dan keberanian — nilai yang saya bawa pula ke dunia Sistem Informasi. Saya aktif <em>mengajarkan teman-teman sekelas</em> berbagai teknik olahraga, karena berbagi adalah kebahagiaan tersendiri.</p>
     <div class="sl">Skill</div>
     <div><span class="bdg">Kepemimpinan</span><span class="bdg">Kerja Tim</span><span class="bdg">HTML/CSS</span><span class="bdg">JavaScript</span><span class="bdg">PHP</span><span class="bdg">MySQL</span><span class="bdg">Figma</span><span class="bdg">MS Office</span><span class="bdg">Komunikasi Publik</span></div>
   </div>
 </div>
 
+<!-- PENDIDIKAN -->
 <div class="mo" id="modal-edu">
   <div class="md">
     <button class="mc" onclick="closeModal('edu')">✕</button>
-    <h2>✦ Pendidikan</h2>
-    <div class="ec"><div class="ico">🏫</div><div><strong>SD Negeri 06</strong><small>Sekolah Dasar · Jenjang Pertama</small><p>Fondasi karakter belajar, kedisiplinan, rasa percaya diri, dan kemandirian.</p></div></div>
-    <div class="ec"><div class="ico">📗</div><div><strong>SMP AL-HIDAYAH Sidareja</strong><small>Sekolah Menengah Pertama · Sidareja</small><p>Tiga tahun belajar, tumbuh, dan membangun kebersamaan yang masih terjaga hingga kini.</p></div></div>
-    <div class="ec"><div class="ico">🎒</div><div><strong>SMAN 1 Kedungreja</strong><small>Sekolah Menengah Atas · Kedungreja</small><p>Menjelajahi ilmu lebih dalam, mengembangkan potensi, dan membentuk visi masa depan.</p></div></div>
-    <div class="ec"><div class="ico">💻</div><div><strong>Universitas Komputama (UNIKMA) Cilacap</strong><small>S1 Sistem Informasi · Mahasiswi Aktif</small><p>Mendalami pemrograman, analisis sistem, basis data, rekayasa perangkat lunak, dan kecerdasan buatan.</p></div></div>
-    <div class="sl">Mata Kuliah Favorit</div>
-    <div><span class="bdg">Basis Data</span><span class="bdg">Pemrograman Web</span><span class="bdg">Analisis Sistem</span><span class="bdg">Kecerdasan Buatan</span><span class="bdg">UI/UX Design</span></div>
-  </div>
-</div>
-
-<div class="mo" id="modal-proyek">
-  <div class="md">
-    <button class="mc" onclick="closeModal('proyek')">✕</button>
-    <h2>✦ Proyek</h2>
-    <p style="color:rgba(245,240,232,.38);font-size:12px;margin-bottom:14px;">Proyek selama studi di UNIKMA Cilacap.</p>
-    <div class="pc"><h3>🏆 Sistem Informasi Jadwal Olahraga Sekolah</h3><p>Aplikasi web pengelola jadwal latihan, hasil pertandingan, dan data atlet — PHP, MySQL, Bootstrap.</p></div>
-    <div class="pc"><h3>📊 Dashboard Monitoring Prestasi Siswa</h3><p>Grafik interaktif prestasi akademik dan non-akademik (Chart.js + PHP) untuk pemantauan real-time.</p></div>
-    <div class="pc"><h3>🌐 Website Profil Sekolah Dinamis</h3><p>CMS sederhana menampilkan info sekolah, berita, dan galeri kegiatan secara dinamis.</p></div>
-    <div class="pc"><h3>📱 Aplikasi Pencatat Latihan Harian</h3><p>Mobile-first untuk mencatat aktivitas olahraga harian menggunakan HTML, CSS, JS, dan Firebase.</p></div>
-    <div class="pc"><h3>🎨 Prototype UI/UX Portal Kampus</h3><p>Desain antarmuka Figma dengan UX Research, persona mapping, dan high-fidelity prototype interaktif.</p></div>
-    <div class="sl">Teknologi</div>
-    <div><span class="bdg">PHP</span><span class="bdg">MySQL</span><span class="bdg">JavaScript</span><span class="bdg">Bootstrap</span><span class="bdg">Figma</span><span class="bdg">Firebase</span><span class="bdg">Chart.js</span><span class="bdg">CodeIgniter</span></div>
-  </div>
-</div>
-
-<div class="mo" id="modal-gallery">
-  <div class="md">
-    <button class="mc" onclick="closeModal('gallery')">✕</button>
-    <h2>✦ Galeri Pengalaman</h2>
-    <p style="color:rgba(245,240,232,.38);font-size:12.5px;margin-bottom:10px;">Momen berharga dalam perjalanan saya. Foto segera hadir! ✨</p>
-    <div class="gg">
-      <div class="gs"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>Olahraga</span></div>
-      <div class="gs"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>Prestasi</span></div>
-      <div class="gs"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>Kampus</span></div>
-      <div class="gs"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>Kegiatan</span></div>
-      <div class="gs"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>Teman</span></div>
-      <div class="gs"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg><span>Kenangan</span></div>
-    </div>
-    <div class="sl" style="margin-top:20px;">Prestasi Olahraga</div>
-    <div class="pc"><h3>🏐 Voli</h3><p>Sertifikat dan piala kompetisi tingkat sekolah. Aktif melatih teman teknik dasar voli.</p></div>
-    <div class="pc"><h3>⚽ Futsal</h3><p>Turnamen futsal antar sekolah, kontribusi nyata dalam kerja tim.</p></div>
-    <div class="pc"><h3>🏸 Badminton</h3><p>Menjuarai pertandingan badminton tingkat sekolah dan mendapat penghargaan.</p></div>
-    <div class="pc"><h3>🏃 Lari</h3><p>Aktif lomba lari, mengembangkan ketahanan fisik serta mental melalui latihan rutin.</p></div>
-  </div>
-</div>
-
-<div class="mo" id="modal-kontak">
-  <div class="md">
-    <button class="mc" onclick="closeModal('kontak')">✕</button>
-    <h2>✦ Hubungi Saya</h2>
-    <p style="color:rgba(245,240,232,.48);font-size:13px;margin-bottom:20px;">Ingin berkolaborasi, berdiskusi, atau sekadar menyapa? Jangan ragu!</p>
-    <a class="cr" href="https://wa.me/6283134002150" target="_blank">
-      <div class="ci wa">📱</div>
-      <div class="ci-info"><strong>WhatsApp</strong><span>083134002150</span></div>
-      <svg style="margin-left:auto;width:15px;height:15px;stroke:rgba(167,139,250,.45);fill:none;stroke-width:2;flex-shrink:0;" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
-    <a class="cr" href="mailto:qoriahumi385@gmail.com" target="_blank">
-      <div class="ci em">📧</div>
-      <div class="ci-info"><strong>Email</strong><span>qoriahumi385@gmail.com</span></div>
-      <svg style="margin-left:auto;width:15px;height:15px;stroke:rgba(167,139,250,.45);fill:none;stroke-width:2;flex-shrink:0;" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
-    <p style="text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(232,201,138,.6);font-size:13.5px;margin-top:20px;padding:12px;border:1px solid rgba(167,139,250,.18);border-radius:10px;background:rgba(167,139,250,.06);">
-      Umi Qoriah · Mahasiswi Sistem Informasi<br>
-      <span style="font-size:11.5px;color:rgba(245,240,232,.3);">UNIKMA Cilacap</span>
-    </p>
-  </div>
-</div>
-
-<script>
-/* CURSOR */
-const cd=document.getElementById('c-dot'),cr=document.getElementById('c-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.left=mx+'px';cd.style.top=my+'px';});
-document.querySelectorAll('button,a').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cr.style.width='46px';cr.style.height='46px';cr.style.borderColor='rgba(167,139,250,.9)';});
-  el.addEventListener('mouseleave',()=>{cr.style.width='32px';cr.style.height='32px';cr.style.borderColor='rgba(167,139,250,.5)';});
-});
-(function tc(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(tc);})();
-
-/* ═══════ NEBULA CANVAS — rich aurora blobs ═══════ */
-(function(){
-  const cv=document.getElementById('nebula'),ctx=cv.getContext('2d');
-  let W,H,t=0;
-  const R=()=>{W=cv.width=innerWidth;H=cv.height=innerHeight;};
-  addEventListener('resize',R);R();
-
-  // Define nebula clouds — more blobs, bolder colors
-  const blobs=[
-    // Large purple cloud top-left
-    {bx:.12,by:.18,rx:520,ry:340,h:268,s:72,l:48,a:.28,spd:.00015,ph:0},
-    // Rose cloud bottom-right
-    {bx:.85,by:.78,rx:480,ry:360,h:348,s:65,l:44,a:.24,spd:.00020,ph:1.8},
-    // Teal cloud bottom-left
-    {bx:.08,by:.82,rx:400,ry:280,h:178,s:50,l:38,a:.20,spd:.00013,ph:3.4},
-    // Golden center-right
-    {bx:.72,by:.28,rx:350,ry:300,h: 38,s:68,l:52,a:.22,spd:.00022,ph:2.2},
-    // Deep violet center
-    {bx:.48,by:.55,rx:560,ry:320,h:258,s:55,l:35,a:.18,spd:.00011,ph:5.0},
-    // Magenta accent top-right
-    {bx:.78,by:.12,rx:300,ry:260,h:315,s:60,l:48,a:.20,spd:.00025,ph:1.1},
-    // Cyan accent mid
-    {bx:.35,by:.70,rx:340,ry:240,h:192,s:45,l:40,a:.16,spd:.00018,ph:4.2},
-  ];
-
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-
-    blobs.forEach(b=>{
-      const ox=Math.sin(t*b.spd*1000+b.ph)*W*.07;
-      const oy=Math.cos(t*b.spd*800 +b.ph)*H*.06;
-      const cx=b.bx*W+ox, cy=b.by*H+oy;
-      const R2=Math.max(b.rx,b.ry);
-      const pulse=1+.1*Math.sin(t*b.spd*600+b.ph);
-
-      const grad=ctx.createRadialGradient(cx,cy,0,cx,cy,R2*pulse);
-      grad.addColorStop(0,   `hsla(${b.h},${b.s}%,${b.l}%,${b.a})`);
-      grad.addColorStop(.35, `hsla(${b.h},${b.s*.8}%,${b.l*.7}%,${b.a*.5})`);
-      grad.addColorStop(.7,  `hsla(${b.h},${b.s*.5}%,${b.l*.5}%,${b.a*.15})`);
-      grad.addColorStop(1,   'transparent');
-
-      ctx.save();
-      ctx.translate(cx,cy);
-      ctx.scale(b.rx/R2,b.ry/R2);
-      ctx.translate(-cx,-cy);
-      ctx.fillStyle=grad;
-      ctx.beginPath();ctx.arc(cx,cy,R2*pulse,0,Math.PI*2);ctx.fill();
-      ctx.restore();
-    });
-
-    t++;
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-/* ═══════ SHOOTING STARS ═══════ */
-(function(){
-  const cv=document.getElementById('streak'),ctx=cv.getContext('2d');
-  let W,H;
-  const R=()=>{W=cv.width=innerWidth;H=cv.height=innerHeight;};
-  addEventListener('resize',R);R();
-
-  const streaks=[];
-  const cols=['167,139,250','232,201,138','201,132,122','192,132,252','122,158,138'];
-
-  function spawn(){
-    if(Math.random()<.014){
-      const c=cols[Math.floor(Math.random()*cols.length)];
-      streaks.push({
-        x:Math.random()*W, y:-10,
-        len:90+Math.random()*170,
-        spd:5+Math.random()*7,
-        angle:Math.PI*(.17+Math.random()*.12),
-        alpha:1, c
-      });
-    }
-  }
-
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    spawn();
-    for(let i=streaks.length-1;i>=0;i--){
-      const s=streaks[i];
-      s.x+=Math.cos(s.angle)*s.spd;
-      s.y+=Math.sin(s.angle)*s.spd;
-      s.alpha-=.013;
-      if(s.alpha<=0||s.y>H+20){streaks.splice(i,1);continue;}
-      const tx=s.x-Math.cos(s.angle)*s.len;
-      const ty=s.y-Math.sin(s.angle)*s.len;
-      const g=ctx.createLinearGradient(tx,ty,s.x,s.y);
-      g.addColorStop(0,'transparent');
-      g.addColorStop(1,`rgba(${s.c},${s.alpha})`);
-      ctx.beginPath();ctx.moveTo(tx,ty);ctx.lineTo(s.x,s.y);
-      ctx.strokeStyle=g;ctx.lineWidth=1.6;ctx.stroke();
-      ctx.beginPath();ctx.arc(s.x,s.y,2.2,0,Math.PI*2);
-      ctx.fillStyle=`rgba(${s.c},${s.alpha*.85})`;ctx.fill();
-    }
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-/* ═══════ DUST PARTICLES ═══════ */
-(function(){
-  const cv=document.getElementById('dust'),ctx=cv.getContext('2d');
-  let W,H,f=0;
-  const R=()=>{W=cv.width=innerWidth;H=cv.height=innerHeight;};
-  addEventListener('resize',R);R();
-
-  const cols=['167,139,250','232,201,138','201,132,122','122,158,138','192,132,252','245,240,232'];
-  const N=Math.floor(innerWidth*innerHeight/3200);
-  const pts=Array.from({length:N},()=>{
-    const c=cols[Math.floor(Math.random()*cols.length)];
-    return{
-      x:Math.random()*innerWidth, y:Math.random()*innerHeight,
-      r:Math.random()*1.7+.2,
-      vx:(Math.random()-.5)*.18, vy:-Math.random()*.24-.04,
-      a:Math.random()*.65, da:.002+Math.random()*.004, c,
-      twk:Math.random()<.4,
-      tp:Math.random()*Math.PI*2, ts:.018+Math.random()*.04
-    };
-  });
-
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    pts.forEach(p=>{
-      p.x+=p.vx;p.y+=p.vy;
-      p.twk?p.a=.05+.58*Math.abs(Math.sin(f*p.ts+p.tp)):(p.a+=p.da,(p.a>.68||p.a<0)&&(p.da*=-1));
-      if(p.y<-3){p.y=H+3;p.x=Math.random()*W;}
-      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(${p.c},${Math.max(0,Math.min(1,p.a))})`;ctx.fill();
-    });
-    f++;requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-/* ═══════ ORBIT ═══════ */
-const obs=[
-  {el:document.getElementById('ob0'),base:270},
-  {el:document.getElementById('ob1'),base:342},
-  {el:document.getElementById('ob2'),base:54},
-  {el:document.getElementById('ob3'),base:126},
-  {el:document.getElementById('ob4'),base:198},
-];
-let od=0;
-(function os(){
-  od+=.2;
-  obs.forEach(o=>{
-    const r=(o.base+od-90)*Math.PI/180;
-    const x=50+48*Math.cos(r),y=50+48*Math.sin(r);
-    o.el.style.left=x+'%';o.el.style.top=y+'%';
-    o.el.style.transform=`translate(-50%,-50%) rotate(${-od}deg)`;
-  });
-  requestAnimationFrame(os);
-})();
-
-/* MODAL */
-function openModal(id){document.getElementById('modal-'+id).classList.add('active');}
-function closeModal(id){document.getElementById('modal-'+id).classList.remove('active');}
-document.querySelectorAll('.mo').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('active');}));
-</script>
-</body>
-</html>
+   
